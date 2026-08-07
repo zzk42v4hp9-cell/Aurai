@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111111" />
+    <title>Aurai - Always-On Wellness Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://db.onlinewebfonts.com/c/304a6edcec9f8858eeaafc2ac18243f4?family=Askan+Light" rel="stylesheet" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      :root { font-family: "Inter", sans-serif; color: white; background: #111; }
+      body { min-width: 320px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      button, input { font: inherit; }
+      button { cursor: pointer; }
+
+      .hero { position: relative; min-height: 100svh; height: 100vh; overflow: hidden; isolation: isolate; }
+      .hero-video { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; object-position: 80% center; }
+      .content { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; padding: 1rem; }
+      .nav { display: flex; align-items: center; justify-content: space-between; }
+      .nav-pill, .mobile-menu, .email-form, .feature-pill { border: 1px solid rgba(255,255,255,.1); }
+      .nav-pill { display: flex; align-items: center; border-radius: 1rem; padding: .625rem 1rem; background: rgba(0,0,0,.2); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+      .logo { width: 1.25rem; height: 1.25rem; color: white; flex: 0 0 auto; }
+      .brand { margin-left: .625rem; font-family: "Askan Light", serif; font-size: 1rem; letter-spacing: .04em; line-height: 1; }
+      .menu-toggle { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; margin-left: 1rem; border: 0; color: white; background: transparent; }
+      .menu-toggle svg { width: 1.2rem; height: 1.2rem; }
+      .desktop-cta { display: none; border: 0; border-radius: 999px; background: white; color: #111827; padding: .75rem 1.5rem; font-size: .875rem; font-weight: 500; }
+      .mobile-menu { position: absolute; top: 4.5rem; right: 1rem; left: 1rem; display: none; padding: 1.25rem; border-radius: 1rem; background: rgba(0,0,0,.3); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+      .mobile-menu.open { display: block; }
+      .mobile-menu a { display: block; padding: .65rem 0; color: white; text-decoration: none; font-size: .9rem; }
+      .mobile-menu button { width: 100%; margin-top: .8rem; border: 0; border-radius: 999px; padding: .75rem 1rem; background: white; color: #111827; font-size: .9rem; font-weight: 500; }
+      .spacer { flex: 1; }
+      .main-content { display: flex; flex-direction: column; padding-bottom: 1rem; }
+      .headline { max-width: 700px; font-family: "Askan Light", serif; font-size: 2rem; font-weight: 300; line-height: 1.05; letter-spacing: 0; }
+      .subtitle { max-width: 520px; margin-top: .75rem; color: rgba(255,255,255,.7); font-size: .75rem; line-height: 1.625; }
+      .email-form { position: relative; display: flex; align-items: center; width: 100%; max-width: 460px; margin-top: 1.25rem; overflow: hidden; border-radius: 999px; background: rgba(0,0,0,.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+      .email-form input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: white; padding: .75rem 7.4rem .75rem 1rem; font-size: .875rem; }
+      .email-form input::placeholder { color: rgba(255,255,255,.7); }
+      .email-form button { position: absolute; right: .375rem; border: 0; border-radius: 999px; padding: .5rem .75rem; background: white; color: #111827; font-size: .75rem; font-weight: 500; white-space: nowrap; }
+      .features { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+      .feature-pill { border-radius: 999px; padding: .375rem .75rem; background: rgba(0,0,0,.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: white; font-size: .75rem; white-space: nowrap; }
+      .desktop-features { display: none; }
+
+      @media (min-width: 640px) {
+        .hero-video { object-position: right center; }
+        .content { padding: 2rem 2.5rem; }
+        .nav-pill { padding: 1rem 1.5rem; }
+        .logo { width: 1.75rem; height: 1.75rem; }
+        .brand { font-size: 1.25rem; }
+        .menu-toggle { margin-left: 8rem; }
+        .desktop-cta { display: block; }
+        .spacer { display: none; }
+        .main-content { flex: 1; flex-direction: row; align-items: flex-end; justify-content: space-between; padding-bottom: 3rem; margin-top: auto; }
+        .headline { font-size: 3.5rem; }
+        .subtitle { margin-top: 1rem; font-size: 1rem; }
+        .email-form { margin-top: 1.5rem; }
+        .email-form input { padding: 1rem 9rem 1rem 1.5rem; }
+        .email-form button { right: .375rem; padding: .75rem 1.5rem; font-size: .875rem; }
+        .mobile-features { display: none; }
+        .desktop-features { display: flex; flex-direction: column; align-items: flex-end; gap: .5rem; margin: 0 0 .1rem 2rem; }
+        .desktop-features .feature-pill { padding: .5rem 1rem; font-size: .875rem; }
+      }
+      @media (min-width: 768px) {
+        .headline { font-size: 4.5rem; }
+        .menu-toggle { margin-left: 16rem; }
+        .subtitle { font-size: 1.125rem; }
+      }
+      @media (min-width: 1024px) {
+        .hero-video { object-position: center center; }
+        .content { padding: 2rem 3rem; }
+        .headline { font-size: 5.5rem; }
+        .menu-toggle { margin-left: 24rem; }
+        .main-content { padding-bottom: 4rem; }
+      }
+      @media (max-width: 390px) { .email-form input { font-size: .8rem; } .email-form button { padding-inline: .6rem; } }
+    </style>
+  </head>
+  <body>
+    <main class="hero">
+      <video class="hero-video" autoplay loop muted playsinline aria-hidden="true">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260618_174853_aac61aa2-0f3f-4cf1-bc78-7f657dd11164.mp4" type="video/mp4" />
+      </video>
+
+      <div class="content">
+        <nav class="nav" aria-label="Main navigation">
+          <div class="nav-pill">
+            <svg class="logo" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M 228 0 C 172.772 0 128 44.772 128 100 L 128 0 L 0 0 L 0 28 C 0 83.228 44.772 128 100 128 L 0 128 L 0 256 L 28 256 C 83.228 256 128 211.228 128 156 L 128 256 L 256 256 L 256 228 C 256 172.772 211.228 128 156 128 L 256 128 L 256 0 Z" /></svg>
+            <span class="brand">Aurai</span>
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+              <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+            </button>
+          </div>
+          <button class="desktop-cta" type="button" data-focus-email>Join the list</button>
+        </nav>
+
+        <div class="mobile-menu" id="mobile-menu">
+          <a href="#story">Story</a>
+          <a href="#benefits">Benefits</a>
+          <a href="#connect">Connect</a>
+          <button type="button" data-focus-email>Join the list</button>
+        </div>
+
+        <div class="spacer"></div>
+        <section class="main-content" id="story">
+          <div class="copy">
+            <h1 class="headline">Your calm is always within.</h1>
+            <p class="subtitle">Aurai is your always-on wellness companion. Built by leading therapists, it brings you the care and clarity right when you need it.</p>
+            <form class="email-form" id="email-form">
+              <input id="email" type="email" autocomplete="email" required placeholder="Your email address" aria-label="Your email address" />
+              <button type="submit">Join the list</button>
+            </form>
+            <div class="features mobile-features" id="benefits" aria-label="Aurai benefits">
+              <span class="feature-pill">Smart Therapy</span><span class="feature-pill">Real-time Healing</span><span class="feature-pill">Insights into outcomes</span>
+            </div>
+          </div>
+          <div class="desktop-features" id="connect" aria-label="Aurai benefits">
+            <span class="feature-pill">Smart Therapy</span><span class="feature-pill">Real-time Healing</span><span class="feature-pill">Insights into outcomes</span>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script>
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.querySelector('#mobile-menu');
+      const menuIcon = document.querySelector('.menu-icon');
+      const email = document.querySelector('#email');
+      toggle.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+        menuIcon.innerHTML = isOpen ? '<path d="M6 6l12 12M18 6L6 18" />' : '<path d="M4 7h16M4 12h16M4 17h16" />';
+      });
+      document.querySelectorAll('[data-focus-email]').forEach((button) => button.addEventListener('click', () => {
+        menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); email.focus();
+      }));
+      document.querySelector('#email-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (email.value) alert(`Thank you - we'll be in touch at ${email.value}.`);
+      });
+    </script>
+  </body>
+</html>
